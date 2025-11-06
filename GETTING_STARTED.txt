@@ -1,0 +1,196 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                    🎉 GETTING STARTED GUIDE 🎉                        ║
+║          Planning Application Scraper & Letter Generator             ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+QUICK START (3 steps):
+═══════════════════════════════════════════════════════════════════════
+
+Step 1: Install Chrome/Chromium
+   Ubuntu/Debian: sudo apt-get install chromium-browser
+   MacOS: brew install --cask google-chrome
+   Windows: Download from https://www.google.com/chrome/
+
+Step 2: Install Python packages
+   pip install -r requirements.txt
+
+Step 3: Run it!
+   python main.py run south_lanarkshire
+
+═══════════════════════════════════════════════════════════════════════
+
+WHAT IT DOES:
+═══════════════════════════════════════════════════════════════════════
+
+1. 🌐 Scrapes planning applications from council website
+2. 📥 Downloads application form PDFs
+3. 📄 Extracts applicant details (names, addresses, contacts)
+4. 💾 Saves everything to CSV files
+5. ✉️  Generates personalized letters for each applicant
+
+═══════════════════════════════════════════════════════════════════════
+
+BEFORE FIRST RUN:
+═══════════════════════════════════════════════════════════════════════
+
+1. Create your letter template:
+   python main.py create-template
+
+2. Edit the template file:
+   templates/letter_template.docx
+   
+   Available placeholders:
+   - {APPLICANT_NAME}
+   - {APPLICANT_ADDRESS}
+   - {EMAIL}
+   - {PHONE}
+   - {APPLICATION_NUMBER}
+   - {SITE_ADDRESS}
+   - {DATE}
+
+3. Run the scraper:
+   python main.py run south_lanarkshire
+
+═══════════════════════════════════════════════════════════════════════
+
+OUTPUT FILES:
+═══════════════════════════════════════════════════════════════════════
+
+After running, you'll find:
+
+📊 CSV Files (output/csv/):
+   • planning_applications_YYYY-MM-DD.csv - Full application data
+   • contact_list_YYYY-MM-DD.csv - Just names and addresses
+
+✉️  Letters (output/letters/):
+   • Letter_[AppNumber]_[ApplicantName].docx - One per applicant
+
+📁 PDFs (data/pdfs/):
+   • [ApplicationReference].pdf - Downloaded PDFs
+
+📋 Logs (logs/):
+   • scraper.log - Detailed operation logs
+
+═══════════════════════════════════════════════════════════════════════
+
+COMMON COMMANDS:
+═══════════════════════════════════════════════════════════════════════
+
+# Full workflow
+python main.py run south_lanarkshire
+
+# View available councils
+python main.py list-councils
+
+# Use existing PDFs (don't re-scrape)
+python main.py run south_lanarkshire --skip-scraping
+
+# Only scrape and save CSV (no letters)
+python main.py run south_lanarkshire --skip-letters
+
+# Detailed logging
+python main.py run south_lanarkshire --verbose
+
+# Show help
+python main.py --help
+
+═══════════════════════════════════════════════════════════════════════
+
+TESTING:
+═══════════════════════════════════════════════════════════════════════
+
+Run the test script to verify everything works:
+   python test_example.py
+
+This will create sample CSV files and letters without scraping.
+
+═══════════════════════════════════════════════════════════════════════
+
+WEEKLY AUTOMATION:
+═══════════════════════════════════════════════════════════════════════
+
+To run automatically every week:
+
+Linux/Mac (using cron):
+   1. Edit crontab: crontab -e
+   2. Add line: 0 9 * * 1 cd /path/to/scraper-python && python main.py run south_lanarkshire
+   3. Runs every Monday at 9 AM
+
+Windows (Task Scheduler):
+   1. Open Task Scheduler
+   2. Create Basic Task
+   3. Set trigger: Weekly, Monday, 9:00 AM
+   4. Action: python main.py run south_lanarkshire
+
+═══════════════════════════════════════════════════════════════════════
+
+ADDING MORE COUNCILS:
+═══════════════════════════════════════════════════════════════════════
+
+Edit config/config.py and add to the COUNCILS dictionary:
+
+COUNCILS = {
+    "south_lanarkshire": {...},
+    "your_council": {
+        "name": "Your Council Name",
+        "url": "https://council-url.gov.uk/weekly-applications",
+        "enabled": True
+    }
+}
+
+Then run: python main.py run your_council
+
+═══════════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+═══════════════════════════════════════════════════════════════════════
+
+Problem: "Chrome not found"
+Solution: Install Chrome/Chromium (see step 1)
+
+Problem: "Module not found"
+Solution: pip install -r requirements.txt
+
+Problem: "No applications found"
+Solution: Check logs/scraper.log for details
+         Website structure may have changed
+
+Problem: "PDF extraction failed"
+Solution: Some PDFs may be scanned images
+         Check the PDF manually
+
+═══════════════════════════════════════════════════════════════════════
+
+DOCUMENTATION:
+═══════════════════════════════════════════════════════════════════════
+
+📖 README.md - Comprehensive documentation
+🚀 QUICKSTART.md - Quick start guide
+📊 PROJECT_SUMMARY.md - Technical overview
+📝 This file - Getting started basics
+
+═══════════════════════════════════════════════════════════════════════
+
+SUPPORT:
+═══════════════════════════════════════════════════════════════════════
+
+1. Check the logs: logs/scraper.log
+2. Read the documentation: README.md
+3. Run with --verbose for detailed output
+4. Test basic functionality: python test_example.py
+
+═══════════════════════════════════════════════════════════════════════
+
+🎯 YOU'RE READY TO GO!
+═══════════════════════════════════════════════════════════════════════
+
+Run your first scrape:
+   python main.py run south_lanarkshire
+
+Check your outputs:
+   ls output/csv/
+   ls output/letters/
+
+Enjoy automating your workflow! 🚀
+
+═══════════════════════════════════════════════════════════════════════
